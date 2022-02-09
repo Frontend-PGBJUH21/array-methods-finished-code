@@ -39,14 +39,42 @@ getRandomUser();
 getRandomUser();
 // DOUBLE MONEY: use .map()
 // we want the array with all our data and then double the money property on the user
+function doubleMoney() {
+  data = data.map((user) => {
+    return { ...user, money: user.money * 2 };
+  });
+
+  updateDOM();
+}
 
 // SORT BY RICHEST: use .sort()
 // show richest first
+function sortByRichest() {
+  data.sort((a, b) => b.money - a.money);
+
+  updateDOM();
+}
 
 // SHOW MILLIONAIRES: use .filter()
 // property money should be greater than a million
+function showMillionaries() {
+  data = data.filter((user) => user.money > 1000000);
+
+  updateDOM();
+}
 
 // CALCULATE WEALTH: .reduce()
+function calculateWealth() {
+  const wealth = data.reduce((acc, user) => (acc += user.money), 0);
+
+  console.log(wealth);
+
+  const wealthEl = document.createElement("div");
+  wealthEl.innerHTML = `<h3>Total wealth: <strong>${formatMoney(
+    wealth
+  )}</strong></h3>`;
+  main.appendChild(wealthEl);
+}
 
 // addData function
 function addData(obj) {
@@ -81,3 +109,7 @@ function formatMoney(number) {
 
 // add event listener
 addUserBtn.addEventListener("click", getRandomUser);
+doubleBtn.addEventListener("click", doubleMoney);
+sortBtn.addEventListener("click", sortByRichest);
+showMillionariesBtn.addEventListener("click", showMillionaries);
+calculateWealthBtn.addEventListener("click", calculateWealth);
